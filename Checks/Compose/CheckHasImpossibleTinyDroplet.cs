@@ -55,7 +55,8 @@ namespace MapsetChecksCatch.Checks.Compose
         {
             var catchObjects = CheckBeatmapSetDistanceCalculation.GetBeatmapDistances(beatmap);
 
-            foreach (var catchObject in catchObjects)
+            foreach (var catchObject in catchObjects.Where(catchObject =>
+                    catchObject.NoteType == NoteType.TINYDROPLET && catchObject.MovementType == MovementType.HYPERDASH))
             {
                 yield return new Issue(
                     GetTemplate("ImpossibleTinyDroplet"),
