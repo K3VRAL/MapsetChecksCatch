@@ -62,9 +62,8 @@ namespace MapsetChecksCatch.Helper
                 
                 for (var i = 0; i < edgeTimes.Count; i++)
                 {
-                    objectExtras.Add(i + 1 == edgeTimes.Count
-                        ? CreateObjectExtra(beatmap, sliderObject, mapSliderObject, edgeTimes[i], objectCode, NoteType.TAIL)
-                        : CreateObjectExtra(beatmap, sliderObject, mapSliderObject, edgeTimes[i], objectCode, NoteType.REPEAT));
+                    var objectExtra = CreateObjectExtra(beatmap, sliderObject, mapSliderObject, edgeTimes[i], objectCode, i + 1 == edgeTimes.Count ? NoteType.TAIL : NoteType.REPEAT);
+                    objectExtras.Add(objectExtra);
                 }
 
                 // TODO doesn't seem to work?
