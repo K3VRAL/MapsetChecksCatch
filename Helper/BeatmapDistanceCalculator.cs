@@ -73,6 +73,22 @@ namespace MapsetChecksCatch.Helper
                 objectExtras.AddRange(mapSliderObject.sliderTickTimes.Select(sliderTick =>
                     CreateObjectExtra(beatmap, sliderObject, mapSliderObject, sliderTick, objectCode, NoteType.DROPLET)));
 
+                // https://github.com/ppy/osu/blob/master/osu.Game.Rulesets.Catch/Objects/JuiceStream.cs#L85
+                var tinyDroplets = new List<CatchHitObject>();
+                for (int i = 0; i < objectExtras.Count - 1; i++) {
+                    var sinceLastTick = objectExtras[i + 1].ActualTime - objectExtras[i].ActualTime;
+                    if (sinceLastTick <= 80)
+                        continue;
+                    var timeBetweenTiny = sinceLastTick;
+                    while (timeBetweenTiny > 100)
+                        timeBetweenTiny /= 2;
+                    for (var t = timeBetweenTiny; t < sinceLastTick; t += timeBetweenTiny) {
+                        var tinyDropletExtra = CreateObjectExtra(beatmap, sliderObject, mapSliderObject, objectExtras[i].ActualTime + t, objectCode, NoteType.TINYDROPLET);
+                        tinyDroplets.Add(tinyDropletExtra);
+                    }
+                }
+                objectExtras.AddRange(tinyDroplets);
+
                 objects.Add(sliderObject);
                 objects.AddRange(objectExtras);
             }

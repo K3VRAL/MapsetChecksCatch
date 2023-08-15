@@ -82,6 +82,7 @@ namespace MapsetChecksCatch.Helper
                 NoteType.REPEAT => "Slider repeat",
                 NoteType.TAIL => "Slider tail",
                 NoteType.DROPLET => "Droplet",
+                NoteType.TINYDROPLET => "TinyDroplet",
                 _ => "NULL"
             };
         }
@@ -94,6 +95,7 @@ namespace MapsetChecksCatch.Helper
         REPEAT,
         TAIL,
         DROPLET,
+        TINYDROPLET,
         SPINNER
     }
 }
